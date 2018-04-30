@@ -1,0 +1,6 @@
+**/.idea
+*.hdf5
+*.csv
+**/__pycache__
+**/data_html
+**/.ipynb_checkpoints
