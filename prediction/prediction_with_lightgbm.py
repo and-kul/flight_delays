@@ -21,12 +21,10 @@ dataset["Origin"] = airports_label_encoder.fit_transform(dataset["Origin"])
 X = dataset.iloc[:, :-1]
 y = dataset.iloc[:, -1]
 
-smote = SMOTE(n_jobs=-1)
-X, y = smote.fit_sample(X, y)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0, stratify=for_stratify)
 
-gbm = lgb.LGBMClassifier(num_leaves=63,
+gbm_2 = lgb.LGBMClassifier(num_leaves=63,
                          n_estimators=200,
                          max_depth=-1,
                          class_weight="balanced",
@@ -34,7 +32,7 @@ gbm = lgb.LGBMClassifier(num_leaves=63,
                          random_state=0,
                          silent=False)
 
-gbm.fit(X_train,
+gbm_2.fit(X_train,
         y_train,
         categorical_feature=
         ["Quarter", "Month", "DayofMonth", "DayOfWeek", "AirlineID", "Origin", "first_layer_CB",
@@ -72,7 +70,7 @@ gbm.fit(X_train,
         verbose=True)
 
 
-y_pred = gbm.predict(X_test)
+y_pred = gbm_2.predict(X_test)
 
 
 print('accuracy score: %2.3f' % accuracy_score(y_test, y_pred))
